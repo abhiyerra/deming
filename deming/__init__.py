@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
 
 
 def control_chart(df, x, y, goal=None, title="Control Chart"):
@@ -41,5 +42,21 @@ def control_chart(df, x, y, goal=None, title="Control Chart"):
     plt.grid(False)
     plt.xticks(rotation=45)
     plt.tight_layout()
+
+    plt.show()
+
+
+def pareto_chart(data, x, y, hue=None, palette="viridis"):
+    fig, ax = plt.subplots()
+    cumsum = data[y].cumsum()
+    ax.bar(data[x], data[y], color="C0")
+    ax2 = ax.twinx()
+    ax2.plot(data[x], cumsum, color="C1", marker="D", ms=7)
+    ax2.yaxis.set_major_formatter(PercentFormatter())
+    ax.tick_params(axis="y", colors="C0")
+    ax2.tick_params(axis="y", colors="C1")
+
+    for tick in ax.get_xticklabels():
+        tick.set_rotation(90)
 
     plt.show()

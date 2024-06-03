@@ -5,7 +5,6 @@ description = "W Edwards Deming Quality Control Charts"
 authors = ["Abhi Yerra <abhi@opszero.comt>"]
 license = "MIT"
 readme = "README.md"
-webpage = "https://yerra.co/playbook/deming/"
 
 [tool.poetry.dependencies]
 python = "^3.11"

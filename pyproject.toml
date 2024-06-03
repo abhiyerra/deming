@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "deming"
-version = "0.1.1"
+version = "0.1.2"
 description = "W Edwards Deming Quality Control Charts"
 authors = ["Abhi Yerra <abhi@opszero.comt>"]
 license = "MIT"

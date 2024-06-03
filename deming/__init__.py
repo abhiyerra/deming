@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
+import numpy as np
 
 
 def control_chart(df, x, y, goal=None, title="Control Chart"):
@@ -7,10 +8,15 @@ def control_chart(df, x, y, goal=None, title="Control Chart"):
     df["Mean"] = df[y].mean()
     df["Upper Control Limit"] = df[y].mean() + df[y].std()
     df["Lower Control Limit"] = df[y].mean() - df[y].std()
-
+    
     plt.figure(figsize=(12, 6))
 
     plt.plot(df[x], df[y], marker="x", linestyle="-", color="r", label=y)
+    
+    z = np.polyfit(df.index, df[y], 1)  
+    p = np.poly1d(z)  
+    
+    plt.plot(df[x], p(df.index), linestyle="--", color="blue", label="Trendline")  
 
     if goal is not None:
         plt.plot(df[x], df["Goal"], marker="x", linestyle="-", color="g", label="Goal")

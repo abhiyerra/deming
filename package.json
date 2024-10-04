@@ -1,0 +1,28 @@
+{
+  "name": "deming",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --declaration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opszero/deming.git"
+  },
+  "author": "Abhi Yerra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/opszero/deming/issues"
+  },
+  "homepage": "https://github.com/opszero/deming#readme",
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@types/d3": "^7.4.3",
+    "d3": "^7.9.0"
+  }
+}

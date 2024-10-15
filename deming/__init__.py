@@ -5,6 +5,102 @@ import numpy as np
 import io
 
 
+def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
+    import plotly.express as px
+    import plotly.graph_objs as go
+    import numpy as np
+
+    mean = df[x].mean()
+    std_dev = df[x].std()
+    UCL = mean + 3 * std_dev
+    LCL = mean - 3 * std_dev
+
+    # Creating the plot
+    fig = go.Figure()
+
+    # Adding data points
+    fig.add_trace(
+        go.Scatter(
+            x=df[y],
+            y=df[x],
+            mode="lines+markers",
+            name=x,
+            line=dict(color="blue"),
+            marker=dict(size=8),
+        )
+    )
+
+    # Goal
+    fig.add_trace(
+        go.Scatter(
+            x=df[y],
+            y=[goal] * len(df),
+            mode="lines",
+            name="Goal",
+            line=dict(color="yellow", dash="dash"),
+        )
+    )
+
+    # Adding center line (mean)
+    fig.add_trace(
+        go.Scatter(
+            x=df[y],
+            y=[mean] * len(df),
+            mode="lines",
+            name="Mean",
+            line=dict(color="green", dash="dash"),
+        )
+    )
+
+    # Adding Upper Control Limit (UCL)
+    fig.add_trace(
+        go.Scatter(
+            x=df[y],
+            y=[UCL] * len(df),
+            mode="lines",
+            name="Upper Control Limit (UCL)",
+            line=dict(color="red", dash="dash"),
+        )
+    )
+
+    # Adding Lower Control Limit (LCL)
+    fig.add_trace(
+        go.Scatter(
+            x=df[y],
+            y=[LCL] * len(df),
+            mode="lines",
+            name="Lower Control Limit (LCL)",
+            line=dict(color="red", dash="dash"),
+        )
+    )
+
+    z = np.polyfit(df.index, df[x], 1)
+    p = np.poly1d(z)
+    df["trendline"] = p(df.index)
+
+    fig.add_trace(
+        go.Scatter(
+            x=df[y],  # Use the same x-axis (df.index)
+            y=df["trendline"],
+            mode="lines",
+            name="Trendline",
+            line=dict(color="purple", dash="dash"),
+        )
+    )
+
+    # Updating layout for better visualization
+    fig.update_layout(
+        title=title,
+        xaxis_title=y,
+        yaxis_title=x,
+        showlegend=True,
+        width=1600,
+        height=600,
+    )
+
+    return fig.to_image(format="svg")
+
+
 def control_chart_img_buffer(df, x, y, goal=None, title="Control Chart"):
     matplotlib.use("Agg")
 

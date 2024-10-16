@@ -10,8 +10,8 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
     import plotly.graph_objs as go
     import numpy as np
 
-    mean = df[x].mean()
-    std_dev = df[x].std()
+    mean = df[y].mean()
+    std_dev = df[y].std()
     UCL = mean + 3 * std_dev
     LCL = mean - 3 * std_dev
 
@@ -21,8 +21,8 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
     # Adding data points
     fig.add_trace(
         go.Scatter(
-            x=df[y],
-            y=df[x],
+            x=df[x],
+            y=df[y],
             mode="lines+markers",
             name=x,
             line=dict(color="blue"),
@@ -33,7 +33,7 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
     # Goal
     fig.add_trace(
         go.Scatter(
-            x=df[y],
+            x=df[x],
             y=[goal] * len(df),
             mode="lines",
             name="Goal",
@@ -44,7 +44,7 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
     # Adding center line (mean)
     fig.add_trace(
         go.Scatter(
-            x=df[y],
+            x=df[x],
             y=[mean] * len(df),
             mode="lines",
             name="Mean",
@@ -55,7 +55,7 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
     # Adding Upper Control Limit (UCL)
     fig.add_trace(
         go.Scatter(
-            x=df[y],
+            x=df[x],
             y=[UCL] * len(df),
             mode="lines",
             name="Upper Control Limit (UCL)",
@@ -66,7 +66,7 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
     # Adding Lower Control Limit (LCL)
     fig.add_trace(
         go.Scatter(
-            x=df[y],
+            x=df[x],
             y=[LCL] * len(df),
             mode="lines",
             name="Lower Control Limit (LCL)",
@@ -74,13 +74,13 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
         )
     )
 
-    z = np.polyfit(df.index, df[x], 1)
+    z = np.polyfit(df.index, df[y], 1)
     p = np.poly1d(z)
     df["trendline"] = p(df.index)
 
     fig.add_trace(
         go.Scatter(
-            x=df[y],  # Use the same x-axis (df.index)
+            x=df[x],  # Use the same x-axis (df.index)
             y=df["trendline"],
             mode="lines",
             name="Trendline",

@@ -24,7 +24,7 @@ def control_chart_img_buffer_plotly(df, x, y, goal, title="Control Chart"):
             x=df[x],
             y=df[y],
             mode="lines+markers",
-            name=x,
+            name=y,
             line=dict(color="blue"),
             marker=dict(size=8),
         )

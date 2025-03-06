@@ -10,7 +10,7 @@ import numpy as np
 
 
 def control_chart_img_buffer_plotly(
-    df, x, y, goal, title="Control Chart", format="svg"
+    df, x, y, goal, title="Control Chart", format="png"
 ):
 
     mean = df[y].mean()

@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/opszero/deming#readme",
   "devDependencies": {
-    "@types/node": "^22.7.4",
+    "@types/node": "^24.8.1",
     "typescript": "^5.6.2"
   },
   "dependencies": {

@@ -4,14 +4,14 @@ from matplotlib.ticker import PercentFormatter
 import numpy as np
 import io
 
-import plotly.express as px
-import plotly.graph_objs as go
 import numpy as np
 
 
 def control_chart_img_buffer_plotly(
     df, x, y, goal, title="Control Chart", format="png"
 ):
+    import plotly.express as px
+    import plotly.graph_objs as go
 
     mean = df[y].mean()
     std_dev = df[y].std()
